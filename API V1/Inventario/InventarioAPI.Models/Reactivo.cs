@@ -14,12 +14,16 @@ namespace InventarioAPI.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
+        [Required]
         [MaxLength(250)]
         public string Nombre { get; set; }
+        [Required]
         [Column(TypeName = "decimal(18,4)")]
         public decimal Cantidad { get; set; }
+        [Required]
         [MaxLength(10)]
         public string Unidad { get; set; }
+        [Required]
         [MaxLength(250)]
         public string Fabricante { get; set; }
         public DateTime? FechaCompra { get; set; }
