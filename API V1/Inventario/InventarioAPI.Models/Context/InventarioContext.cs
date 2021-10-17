@@ -16,5 +16,7 @@ namespace InventarioAPI.Models.Context
         }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Rol> Roles { get; set; }
+        public DbSet<Proveedor> Proveedors { get; set; }
+        public DbSet<Reactivo> Reactivos { get; set; }
     }
 }

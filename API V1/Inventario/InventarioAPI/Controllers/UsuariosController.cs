@@ -73,10 +73,10 @@ namespace InventarioAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Usuarios
+        // POST: api/Register
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
+        public async Task<ActionResult<Usuario>> Register(Usuario usuario)
         {
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();

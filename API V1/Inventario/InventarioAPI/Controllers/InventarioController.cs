@@ -57,7 +57,7 @@ namespace InventarioAPI.Controllers
                 reply.Message = "Unexpected error";
                 return BadRequest(reply);
             }
-
         }
+
     }
 }
