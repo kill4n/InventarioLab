@@ -1,4 +1,5 @@
 using InventarioAPI.Models.Context;
+using InventarioAPI.Reposotory;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,6 +38,7 @@ namespace InventarioAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InventarioAPI", Version = "v1" });
             });
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

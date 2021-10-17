@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using InventarioAPI.Models.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,34 +9,39 @@ namespace InventarioAPI.Reposotory
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
+        private InventarioContext _context;
+        private DbSet<TEntity> _dbSet;
+        public Repository(InventarioContext context)
+        {
+            _context = context;
+            _dbSet = context.Set<TEntity>();
+            _context.Database.EnsureCreated();
+        }
         public void Add(TEntity data)
         {
-            throw new NotImplementedException();
+            _dbSet.Add(data);
         }
-
         public void Delete(long id)
         {
-            throw new NotImplementedException();
+            TEntity dataToDelete = _dbSet.Find(id);
+            _dbSet.Remove(dataToDelete);
         }
-
         public IEnumerable<TEntity> Get()
         {
-            throw new NotImplementedException();
+            return _dbSet.ToList();
         }
-
         public TEntity Get(long id)
         {
-            throw new NotImplementedException();
+            return _dbSet.Find(id);
         }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(TEntity data)
         {
-            throw new NotImplementedException();
+            _dbSet.Attach(data);
+            _context.Entry(data).State = EntityState.Modified;
+        }
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

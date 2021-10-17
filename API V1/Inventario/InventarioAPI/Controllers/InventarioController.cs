@@ -1,6 +1,7 @@
 ﻿using InventarioAPI.Models;
 using InventarioAPI.Models.Context;
 using InventarioAPI.Models.WS;
+using InventarioAPI.Reposotory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,13 +15,12 @@ namespace InventarioAPI.Controllers
     [ApiController]
     public class InventarioController : ControllerBase
     {
-        private readonly InventarioContext _context;
+        private readonly IRepository<Usuario> _repositoryUser;
 
-        public InventarioController(InventarioContext context)
+        public InventarioController(InventarioContext context, IRepository<Usuario> repositoryUser)
         {
-            _context = context;
+            _repositoryUser = repositoryUser;
         }
-
 
         /// <summary>
         /// Login inventory app
@@ -34,15 +34,15 @@ namespace InventarioAPI.Controllers
             reply.Result = -1;
             try
             {
-                IQueryable<Usuario> lst = _context.Usuarios.Where(u => u.Email == user.Email && u.Password == user.Password && u.IdEstatus == 1);
+                IEnumerable<Usuario> lst = _repositoryUser.Get().Where(u => u.Email == user.Email && u.Password == user.Password && u.IdEstatus == 1);
                 if (lst.Any())
                 {
                     reply.Result = 0;
                     reply.Data = Guid.NewGuid().ToString();
                     Usuario usr = lst.FirstOrDefault();
                     usr.Token = (string)reply.Data;
-                    _context.Entry(usr).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                    _context.SaveChanges();
+                    _repositoryUser.Update(usr);
+                    _repositoryUser.Save();
                     reply.Message = "Inicio de sesión exitoso";
                     return Ok(reply);
                 }
@@ -54,6 +54,7 @@ namespace InventarioAPI.Controllers
             }
             catch (Exception ex)
             {
+                reply.Result = 700;
                 reply.Message = "Unexpected error";
                 return BadRequest(reply);
             }
