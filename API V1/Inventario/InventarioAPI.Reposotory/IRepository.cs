@@ -8,11 +8,11 @@ namespace InventarioAPI.Reposotory
 {
     public interface IRepository<TEntity>
     {
-        IEnumerable<TEntity> Get();
-        TEntity Get(long id);
-        void Add(TEntity data);
+        Task<IEnumerable<TEntity>> Get();
+        Task<TEntity> Get(long id);
+        Task Add(TEntity data);
         void Delete(long id);
         void Update(TEntity data);
-        void Save();
+        Task Save();
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace InventarioAPI.Reposotory
 {
@@ -17,31 +17,31 @@ namespace InventarioAPI.Reposotory
             _dbSet = context.Set<TEntity>();
             _context.Database.EnsureCreated();
         }
-        public void Add(TEntity data)
+        public async Task Add(TEntity data)
         {
-            _dbSet.Add(data);
+            await _dbSet.AddAsync(data);
         }
         public void Delete(long id)
         {
             TEntity dataToDelete = _dbSet.Find(id);
             _dbSet.Remove(dataToDelete);
         }
-        public IEnumerable<TEntity> Get()
+        public async Task<IEnumerable<TEntity>> Get()
         {
-            return _dbSet.ToList();
+            return await _dbSet.ToListAsync();
         }
-        public TEntity Get(long id)
+        public async Task<TEntity> Get(long id)
         {
-            return _dbSet.Find(id);
+            return await _dbSet.FindAsync(id);
         }
         public void Update(TEntity data)
         {
             _dbSet.Attach(data);
             _context.Entry(data).State = EntityState.Modified;
         }
-        public void Save()
+        public async Task Save()
         {
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
         }
     }
 }

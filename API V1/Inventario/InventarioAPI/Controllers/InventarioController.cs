@@ -34,7 +34,7 @@ namespace InventarioAPI.Controllers
             reply.Result = -1;
             try
             {
-                IEnumerable<Usuario> lst = _repositoryUser.Get().Where(u => u.Email == user.Email && u.Password == user.Password && u.IdEstatus == 1);
+                IEnumerable<Usuario> lst = _repositoryUser.Get().Result.Where(u => u.Email == user.Email && u.Password == user.Password && u.IdEstatus == 1);
                 if (lst.Any())
                 {
                     reply.Result = 0;
