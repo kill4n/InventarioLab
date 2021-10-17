@@ -23,16 +23,16 @@ namespace InventarioAPI.Controllers
 
         // GET: api/Usuarios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsusarios()
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
-            return await _context.Ususarios.ToListAsync();
+            return await _context.Usuarios.ToListAsync();
         }
 
         // GET: api/Usuarios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(long id)
         {
-            var usuario = await _context.Ususarios.FindAsync(id);
+            var usuario = await _context.Usuarios.FindAsync(id);
 
             if (usuario == null)
             {
@@ -78,7 +78,7 @@ namespace InventarioAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
-            _context.Ususarios.Add(usuario);
+            _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
@@ -88,13 +88,13 @@ namespace InventarioAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(long id)
         {
-            var usuario = await _context.Ususarios.FindAsync(id);
+            var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
             {
                 return NotFound();
             }
 
-            _context.Ususarios.Remove(usuario);
+            _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -102,7 +102,7 @@ namespace InventarioAPI.Controllers
 
         private bool UsuarioExists(long id)
         {
-            return _context.Ususarios.Any(e => e.Id == id);
+            return _context.Usuarios.Any(e => e.Id == id);
         }
     }
 }

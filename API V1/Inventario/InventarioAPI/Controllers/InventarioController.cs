@@ -21,6 +21,12 @@ namespace InventarioAPI.Controllers
             _context = context;
         }
 
+
+        /// <summary>
+        /// Login inventory app
+        /// </summary>
+        /// <param name="user">Must provide email and password to connect</param>
+        /// <returns>Result of operation.</returns>
         [HttpPost]
         public IActionResult Login(Usuario user)
         {
@@ -28,7 +34,7 @@ namespace InventarioAPI.Controllers
             reply.Result = -1;
             try
             {
-                IQueryable<Usuario> lst = _context.Ususarios.Where(u => u.Email == user.Email && u.Password == user.Password && u.IdEstatus == 1);
+                IQueryable<Usuario> lst = _context.Usuarios.Where(u => u.Email == user.Email && u.Password == user.Password && u.IdEstatus == 1);
                 if (lst.Any())
                 {
                     reply.Result = 0;

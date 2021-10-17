@@ -14,6 +14,7 @@ namespace InventarioAPI.Models.Context
         {
 
         }
-        public DbSet<Usuario> Ususarios { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Rol> Roles { get; set; }
     }
 }
