@@ -25,6 +25,8 @@ namespace InventarioAPI.Controllers
 
         // GET: api/Proveedores
         [HttpGet]
+        [ActionName("GetAll")]
+
         public async Task<ActionResult<IEnumerable<Proveedor>>> GetProveedores()
         {
             Reply reply = new Reply();

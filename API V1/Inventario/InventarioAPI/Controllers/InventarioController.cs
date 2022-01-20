@@ -28,6 +28,7 @@ namespace InventarioAPI.Controllers
         /// <param name="user">Must provide email and password to connect</param>
         /// <returns>Result of operation.</returns>
         [HttpPost]
+        [ActionName("Login")]
         public IActionResult Login(Usuario user)
         {
             Reply reply = new Reply();
